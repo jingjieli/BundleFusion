@@ -6,6 +6,26 @@ You are free to use this code with proper attribution in non-commercial applicat
 
 More information about this project can be found in our [paper](https://arxiv.org/pdf/1604.01093.pdf) and [project website](http://graphics.stanford.edu/projects/bundlefusion/).
 
+## Apr. 25, 2018 Update - Build on VS2017 with CUDA9.1 for nVidia K2000
+A few things you may have to do in order to compile:
+
+- If you're running VS2017 with latest update, most likely you're using MSVC++ 14.14 _MSD_VER == 1914.
+  In "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.1\include\crt>type host_config.h", modify _MSC_VER > 1911 to 1914
+  
+- Compile error "cannot include correct.h" etc. 
+  Install Windows Universal CRT. Use Visaul Studio installer, choose "modify" for this additional package.
+  
+- Cannot find DX hearder even after installing DirectX SDK June 2010. 
+  In Project Property VC++ Include Directory, add "\" between "{DXSDK_DIR}" and "Include"
+  
+- Error related to "std::enable_if" "xtr1common" blah blah.
+  Turns out toolset 14.14 doesn't work well with CUDA9.1. Roll back to 14.11 works.
+  Article on having two minor version of toolset by Microsoft:
+    https://blogs.msdn.microsoft.com/vcblog/2017/11/15/side-by-side-minor-version-msvc-toolsets-in-visual-studio-2017/
+	
+- And here's a general guideline to build, which may or may not work for your system:
+    https://bericht.neopostmodern.com/posts/artist-guide-to-bundlefusion
+
 ## Installation
 The code was developed under VS2013, and tested with a Structure Sensor.
 
